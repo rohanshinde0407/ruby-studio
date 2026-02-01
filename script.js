@@ -43,14 +43,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     navLinks.forEach(link => {
         const linkPath = link.getAttribute('href');
-        
-        // Remove active class first
-        link.classList.remove('active');
-        
         if (linkPath === currentPath || 
-            (currentPath === '' && (linkPath === 'index.html' || linkPath === 'index-new.html')) ||
-            ((currentPath === 'index.html' || currentPath === 'index-new.html') && (linkPath === 'index.html' || linkPath === 'index-new.html'))) {
+            (currentPath === '' && linkPath === 'index.html') ||
+            (currentPath === 'index.html' && linkPath === 'index.html')) {
             link.classList.add('active');
+        } else {
+            link.classList.remove('active');
         }
     });
 });
@@ -93,21 +91,10 @@ if (contactForm) {
             return;
         }
 
-        // Create mailto link with all form data
-        const serviceText = service ? `\n\nService Interested In: ${service}` : '';
-        const subject = `New Inquiry from ${name}`;
-        const body = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}${serviceText}\n\nMessage:\n${message}`;
-        
-        const mailtoLink = `mailto:Rubystudio2021@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        
-        // Open mailto link
-        window.location.href = mailtoLink;
-        
-        // Show success message
-        setTimeout(() => {
-            alert('Thank you for contacting Ruby Studio! Your default email client will open to send the message.');
-            contactForm.reset();
-        }, 100);
+        // If validation passes, you can submit the form
+        // For now, we'll just show a success message
+        alert('Thank you for contacting Ruby Studio! We will get back to you soon.');
+        contactForm.reset();
     });
 }
 
